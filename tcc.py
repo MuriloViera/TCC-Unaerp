@@ -14,7 +14,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
-import glob
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
@@ -22,21 +21,37 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
 import csv
 
+"""CODIFICAÇÃO"""
+
 #PASSAR POR CADA IMAGEM
 
-diretorio = "/content/drive/Othercomputers/Meu computador/Data_set_Frutas/train/"
+diretorio = "/content/drive/Othercomputers/Meu computador/Data_set_Frutas/dados/"
 
 arquivos = os.listdir(diretorio) #Gerar uma lista aleatoria
 arquivos.sort() #Ordenar a lista
 
 #Função de tratamento de imagem-----------------------------------------------------
 def imagem(nome_imagem, diretorio):
-  img = cv.imread('/content/drive/Othercomputers/Meu computador/Data_set_Frutas/train/' + diretorio + '/' + nome_imagem)
-  img = cv.cvtColor(img,cv.COLOR_BGR2RGB)
+  img = cv.imread('/content/drive/Othercomputers/Meu computador/Data_set_Frutas/dados/' + diretorio + '/' + nome_imagem)
+  img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+
+  #Deixar a imagem mais lisa para remover detalhes das frutas -->MANTER ESSE BLUR
+  img3 = cv.medianBlur(img, 13)
+  
+  #Remover pequenos ruídos da imagem
+  kernel = np.ones((3,3),np.uint8)
+  img2 = cv.medianBlur(img, 13)
+  img4 = cv.morphologyEx(img2,cv.MORPH_CLOSE, kernel, iterations=4)
+  
+  #Tornar a imagem preto e branco para obter o contorno dela mais facil
+  #img = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+  #th, img = cv.threshold(img,80,255,cv.THRESH_BINARY_INV)
   #TA FUNCIONANDO
   
-  plt.figure(figsize=(15,10))
-  plt.subplot(121), plt.imshow(img), plt.axis('off')
+  plt.figure(figsize=(15,15))
+  plt.subplot(141), plt.imshow(img), plt.axis('off')
+  plt.subplot(142), plt.imshow(img4), plt.axis('off'), plt.title('Operação + Blur')
+  plt.subplot(143), plt.imshow(img3), plt.axis('off'), plt.title('Blur solo')
   plt.show()
 
 #Abrir o arquivo---------------------------------------------------
@@ -64,13 +79,13 @@ with open('/content/drive/Othercomputers/Meu computador/Data_set_Frutas/finforma
       arquivos = os.listdir(diretorio + 'banana')
       for arquivo in arquivos:
         writer.writerow([arquivo] + ['Banana'])
-        #imagem(arquivo)
+        #imagem(arquivo, 'banana')
 
     if arquivo == 'grapes':
       arquivos = os.listdir(diretorio + 'grapes')
       for arquivo in arquivos:
         writer.writerow([arquivo] + ['Uva'])
-        #imagem(arquivo)
+        #imagem(arquivo, 'grapes')
 
     if arquivo == 'kiwi':
       arquivos = os.listdir(diretorio + 'kiwi')
