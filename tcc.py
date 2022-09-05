@@ -151,7 +151,7 @@ with open('/content/drive/Othercomputers/Meu computador/Data_set_Frutas/finforma
       arquivos = os.listdir(diretorio + 'orange')
       for arquivo in arquivos:
         writer.writerow([arquivo] + ['Laranja'])
-        #imagem(arquivo, 'orange')
+        imagem(arquivo, 'orange')
 
     if arquivo == 'cashew':
       arquivos = os.listdir(diretorio + 'cashew')
@@ -163,7 +163,7 @@ with open('/content/drive/Othercomputers/Meu computador/Data_set_Frutas/finforma
       arquivos = os.listdir(diretorio + 'pear')
       for arquivo in arquivos:
         writer.writerow([arquivo] + ['Pera'])
-        imagem(arquivo, 'pear')
+        #imagem(arquivo, 'pear')
 
     if arquivo == 'pineapple':
       arquivos = os.listdir(diretorio + 'pineapple')
