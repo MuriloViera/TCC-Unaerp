@@ -38,14 +38,14 @@ def imagem(nome_imagem, diretorio):
   kernel = np.ones((5,5),np.uint8)
   mask2 = np.array([[-1,-1,-1], [-1,9,-1], [-1,-1,-1]])
 
-  img2 = cv.medianBlur(img, 9)  
+  img2 = cv.medianBlur(img, 9)
   img2 = cv.morphologyEx(img2,cv.MORPH_CLOSE, kernel, iterations=1)
 
   #Obteção das bordas e tratamento
   img7 = cv.Canny(img2, 50, 255)
-  #kernel2 = np.ones((2,2),np.uint8) 
+  #kernel2 = np.ones((2,2),np.uint8)
   #img7 = cv.dilate(img7,kernel2,iterations=1) Para imagens mais detalhistas
- 
+
 
   #Obtençao do contorno
   contornos, ordem = cv.findContours(img7, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
@@ -91,7 +91,7 @@ with open('/content/drive/Othercomputers/Meu computador/Data_set_Frutas_2/finfor
   writer2.writeheader()
   #Estrutura de repitição
   for arquivo in arquivos:
-    
+
     #Rodar as pastas com cada imagem
     if arquivo == 'apple':
       arquivos = os.listdir(diretorio + 'apple')
@@ -99,14 +99,14 @@ with open('/content/drive/Othercomputers/Meu computador/Data_set_Frutas_2/finfor
       for arquivo in arquivos:
         perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'apple')
         writer.writerow([arquivo] + ['Maca'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])
-        
+
     if arquivo == 'banana':
       arquivos = os.listdir(diretorio + 'banana')
       arquivos.sort(key=lambda s: int(re.search(r'\d+', s).group()))
       for arquivo in arquivos:
         perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'banana')
         writer.writerow([arquivo] + ['Banana'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])
-        
+
     if arquivo == 'kiwi':
       arquivos = os.listdir(diretorio + 'kiwi')
       arquivos.sort(key=lambda s: int(re.search(r'\d+', s).group()))
@@ -126,15 +126,15 @@ with open('/content/drive/Othercomputers/Meu computador/Data_set_Frutas_2/finfor
       arquivos.sort(key=lambda s: int(re.search(r'\d+', s).group()))
       for arquivo in arquivos:
         perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'tangerine')
-        writer.writerow([arquivo] + ['Tangerina'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])     
+        writer.writerow([arquivo] + ['Tangerina'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])
 
     if arquivo == 'mango':
       arquivos = os.listdir(diretorio + 'mango')
       arquivos.sort(key=lambda s: int(re.search(r'\d+', s).group()))
       for arquivo in arquivos:
         perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'mango')
-        writer.writerow([arquivo] + ['Manga'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])  
-        
+        writer.writerow([arquivo] + ['Manga'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])
+
     if arquivo == 'orange':
       arquivos = os.listdir(diretorio + 'orange')
       arquivos.sort(key=lambda s: int(re.search(r'\d+', s).group()))
@@ -148,21 +148,28 @@ with open('/content/drive/Othercomputers/Meu computador/Data_set_Frutas_2/finfor
       for arquivo in arquivos:
         perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'papaya')
         writer.writerow([arquivo] + ['Mamao'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])
-         
+
     if arquivo == 'pear':
       arquivos = os.listdir(diretorio + 'pear')
       arquivos.sort(key=lambda s: int(re.search(r'\d+', s).group()))
       for arquivo in arquivos:
         perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'pear')
         writer.writerow([arquivo] + ['Pera'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])
-        
+
     if arquivo == 'pineapple':
       arquivos = os.listdir(diretorio + 'pineapple')
       arquivos.sort(key=lambda s: int(re.search(r'\d+', s).group()))
       for arquivo in arquivos:
-        perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'pineapple')  
+        perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'pineapple')
         writer.writerow([arquivo] + ['Abacaxi'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])
-    
+
+    if arquivo == 'plum':
+      arquivos = os.listdir(diretorio + 'plum')
+      arquivos.sort(key=lambda s: int(re.search(r'\d+', s).group()))
+      for arquivo in arquivos:
+        perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'plum')
+        writer.writerow([arquivo] + ['Ameixa'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])
+
     if arquivo == 'strawberry':
       arquivos = os.listdir(diretorio + 'strawberry')
       arquivos.sort(key=lambda s: int(re.search(r'\d+', s).group()))
@@ -170,13 +177,7 @@ with open('/content/drive/Othercomputers/Meu computador/Data_set_Frutas_2/finfor
         perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'strawberry')
         writer.writerow([arquivo] + ['Morango'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])
 
-    if arquivo == 'tomato':
-      arquivos = os.listdir(diretorio + 'tomato')
-      arquivos.sort(key=lambda s: int(re.search(r'\d+', s).group()))
-      for arquivo in arquivos:
-        perimetro, area, compacidade, excentricidade, diametro = imagem(arquivo, 'tomato')
-        writer.writerow([arquivo] + ['Tomate'] + [int(perimetro)] + [area] + [round(compacidade)] + [excentricidade] + [int(diametro)])
-   
+
 #Reconhecimento de padrões do arquivo CSV
 dados = pd.read_csv('/content/drive/Othercomputers/Meu computador/Data_set_Frutas_2/finformation2.csv', sep=',')
 dados.describe()
@@ -194,7 +195,7 @@ X = normalizar.transform(X)
 XTrain, XTest, YTrain, YTest = train_test_split(X,Y,test_size=0.00049) #Separar 1 só
 
 #Classificador KNN
-knn = KNeighborsClassifier(n_neighbors = 3) 
+knn = KNeighborsClassifier(n_neighbors = 3)
 knn.fit(XTrain, YTrain)
 Y = knn.predict(XTest)
 
@@ -209,7 +210,7 @@ nome_ImagemF = dados.loc[numero_Index, '#']
 diretorioF = nome_ImagemF.split('_')
 diretorioF = diretorioF[0].lower()
 
-#Prints de comprovação para o usuário  
+#Prints de comprovação para o usuário
 print('Imagem escolhida aleatoriamente foi:', nome_ImagemF , '\n')
 
 img = cv.imread('/content/drive/Othercomputers/Meu computador/Data_set_Frutas_2/dados/' + diretorioF + '/' + nome_ImagemF)
@@ -219,7 +220,7 @@ plt.subplot(141), plt.imshow(img), plt.axis('off'), plt.title('Original')
 plt.show()
 
 print('\nQue é classificada originalmente como:', nome_Fruta, '\n')
-print('O algoritimo classificou como:', Y[0], '\n')    
+print('O algoritimo classificou como:', Y[0], '\n')
 
 #Acurácia
 acc = accuracy_score(YTest,Y)
@@ -242,16 +243,16 @@ for un in fruta_valor:
     controle += 1
 
 if controle == 1:
-  print('\nPara um(a)',nome_Fruta,'de tamanho médio você terá aproximadamente:', 
-  valores.loc[index,'protein (g)'] ,'g de proteina,',
+  print('\nPara um(a)',nome_Fruta,'de tamanho médio você terá aproximadamente:',
+  valores.loc[index,'protein (g)'] ,'g de proteina, \n',
   valores.loc[index,'carbohydrates (g)'],'g de carboidratos,',
-  valores.loc[index,'fiber (g)'],'g de fibras,\n',
+  valores.loc[index,'fiber (g)'],'g de fibras,',
   valores.loc[index,'sugars (g)'],'g de açucar e',
-  valores.loc[index,'iron (mg)'],'mg de ferro')
+  valores.loc[index,'total fat (g)'],'g de gorduras totais.')
 else:
-  print('\nPara um(a)',nome_Fruta,'de tamanho médio você terá aproximadamente:', 
-  valores.loc[index,'protein (g)'] ,'g de proteina,',
+  print('\nPara um(a)',nome_Fruta,'de tamanho médio você terá aproximadamente:',
+  valores.loc[index,'protein (g)'] ,'g de proteina, \n',
   valores.loc[index,'carbohydrates (g)'],'g de carboidratos,',
-  valores.loc[index,'fiber (g)'],'g de fibras,\n',
+  valores.loc[index,'fiber (g)'],'g de fibras,',
   valores.loc[index,'sugars (g)'],'g de açucar e',
-  valores.loc[index,'iron (mg)'],'mg de ferro')
+  valores.loc[index,'total fat (g)'],'g de gorduras totais.')
